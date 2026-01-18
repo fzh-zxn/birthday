@@ -1,14 +1,21 @@
 // trigger to play music in the background with sweetalert
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
+    // 等页面渲染完成后显示启动按钮
     Swal.fire({
-        title: '点击开始生日惊喜 🎂',
-        text: '点一下就开始动画和音乐',
+        title: '🎂 点击开始生日惊喜',
+        text: '建议打开声音哦～',
         confirmButtonText: '开始',
         allowOutsideClick: false
     }).then(() => {
         const song = document.querySelector('.song');
-        song.play();
-        animationTimeline();
+
+        // 某些浏览器需要catch防止报错
+        song.play().catch(() => {});
+
+        // 确保动画函数存在后再启动
+        if (typeof animationTimeline === "function") {
+            animationTimeline();
+        }
     });
 });
 
